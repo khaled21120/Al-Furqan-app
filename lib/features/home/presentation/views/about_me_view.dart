@@ -57,31 +57,26 @@ class AboutMeView extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 80),
               Column(
                 children: [
-                  Text(
-                    'تم التطوير بواسطة:',
-                    style: GoogleFonts.tajawal(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'خالد جمال - مهندس برمجيات ',
-                    style: GoogleFonts.tajawal(fontSize: 16),
-                  ),
+                  Text('يمكنك متابعة مطور التطبيق عبن طريق', style: GoogleFonts.tajawal(fontSize: 16)),
                   const SizedBox(height: 10),
                   const SocialButtonsRow(),
                   const SizedBox(height: 10),
-
-                  Center(
-                    child: Text(
-                      'الإصدار 1.0.0',
-                      style: GoogleFonts.tajawal(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
+                  Text(
+                    'هذا التطبيق صدقة جارية علي جميع ارواح المسلمين',
+                    style: GoogleFonts.tajawal(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'الإصدار 1.0.0',
+                    style: GoogleFonts.tajawal(
+                      color: Colors.grey,
+                      fontSize: 14,
                     ),
                   ),
                   const SizedBox(height: 10),

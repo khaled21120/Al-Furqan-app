@@ -37,32 +37,6 @@ class SocialButtonsRow extends StatelessWidget {
           },
         ),
 
-        // google Button
-        // IconButton(
-        //   icon: const Icon(
-        //     FontAwesomeIcons.google,
-        //     color: Colors.red,
-        //     size: 30,
-        //   ),
-        //   onPressed: () {
-        //     // Add your Twitter link action here
-        //     launchCustomUr(context, 'https://www.google.com/');
-        //   },
-        // ),
-
-        // Instagram Button
-        IconButton(
-          icon: const Icon(
-            FontAwesomeIcons.linkedin,
-            color: Colors.blueAccent,
-            size: 30,
-          ),
-          onPressed: () {
-            // Add your linkedin link action here
-            launchCustomUr(context, 'https://www.linkedin.com/');
-          },
-        ),
-
         // github Button
         IconButton(
           icon: const Icon(
@@ -73,6 +47,19 @@ class SocialButtonsRow extends StatelessWidget {
           onPressed: () {
             // Add your github link action here
             launchCustomUr(context, 'https://github.com/khaled21120');
+          },
+        ),
+
+        // linkedin Button
+        IconButton(
+          icon: const Icon(
+            FontAwesomeIcons.linkedin,
+            color: Colors.blueAccent,
+            size: 30,
+          ),
+          onPressed: () {
+            // Add your linkedin link action here
+            launchCustomUr(context, 'https://www.linkedin.com/');
           },
         ),
       ],
