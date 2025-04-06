@@ -62,7 +62,7 @@ abstract class AppRouters {
         name: 'audioPlayer',
         builder: (_, state) {
           final extras =
-              state.extra as Map<String, dynamic>; // Extract data as Map
+              state.extra as Map<String, dynamic>; 
           final surah = extras['surah'] as SurahModel;
           final endPoint = extras['endPoint'] as String;
           final name = extras['name'] as String;
