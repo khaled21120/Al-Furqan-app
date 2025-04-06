@@ -41,6 +41,7 @@ class _AudioControlsState extends State<AudioControls> {
       // Request storage permission
       bool permissionGranted = await _requestPermission();
       if (!permissionGranted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('😢 فشل الحصول على إذن الوصول للتخزين'),
