@@ -17,7 +17,11 @@ class SocialButtonsRow extends StatelessWidget {
         if (await canLaunchUrl(uri)) {
           await launchUrl(uri);
         } else {
-          Helper.showSnackBar(context: context, message: 'Cannot launch $url');
+          Helper.showSnackBar(
+            context: context,
+            message: 'تعذر الفتح',
+            title: 'حاول مرة اخرى',
+          );
         }
       }
     }

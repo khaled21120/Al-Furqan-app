@@ -41,7 +41,8 @@ class SurahListItem extends StatelessWidget {
             extra: {
               'surah': surahModel,
               'index': idx,
-              'name': Constants.recite[idx].endPoint,
+              'endPoint': Constants.recite[idx].endPoint,
+              'name': Constants.recite[idx].name,
             },
           );
         } else {

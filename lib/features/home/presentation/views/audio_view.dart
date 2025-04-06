@@ -16,8 +16,13 @@ import 'package:quran/features/home/presentation/widgets/audio_controls.dart';
 import '../widgets/audio_bar.dart';
 
 class AudioView extends StatefulWidget {
-  const AudioView({super.key, required this.name, required this.surahModel});
-  final String name;
+  const AudioView({
+    super.key,
+    required this.name,
+    required this.surahModel,
+    required this.endPoint,
+  });
+  final String name, endPoint;
   final SurahModel surahModel;
 
   @override
@@ -38,7 +43,10 @@ class _AudioViewState extends State<AudioView> {
     try {
       int id = widget.surahModel.number!; // Surah number
       String name = widget.name; // Reciter name
-      String url = Helper.getAudioUrl(name: name, id: id); // URL for audio file
+      String url = Helper.getAudioUrl(
+        name: widget.endPoint,
+        id: id,
+      ); // URL for audio file
 
       // Set the audio source for the player
       await _player.setAudioSource(
@@ -157,7 +165,11 @@ class _AudioViewState extends State<AudioView> {
                     const SizedBox(height: 30),
                     AudioBar(audioPlayer: _player),
                     const SizedBox(height: 30),
-                    AudioControls(audioPlayer: _player, dio: getIt<Dio>()),
+                    AudioControls(
+                      audioPlayer: _player,
+                      dio: getIt<Dio>(),
+                      name: widget.name, surahName: widget.surahModel.name!,
+                    ),
                   ],
                   const Spacer(),
                 ],

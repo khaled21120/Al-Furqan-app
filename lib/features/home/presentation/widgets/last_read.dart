@@ -19,7 +19,7 @@ class LastRead extends StatelessWidget {
     return BlocBuilder<LastReadCubit, SurahModel?>(
       builder: (context, lastRead) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Container(
             padding: const EdgeInsets.only(top: 20, left: 20),
             decoration: BoxDecoration(
@@ -61,8 +61,9 @@ class LastRead extends StatelessWidget {
                           ).pushNamed('surahDetailsView', extra: lastRead);
                         } else {
                           Helper.showSnackBar(
+                            title: 'انت لم تبداء بالقراءة بعد',
                             context: context,
-                            message: 'لا يوجد قراءات',
+                            message: '💖 لا تتردد، ابدأ اليوم بتلاوة القرآن، وفتح صفحة جديدة مع الله.',
                           );
                         }
                       },

@@ -51,7 +51,12 @@ class DetailsAppbar extends StatelessWidget {
                 title,
                 style: GoogleFonts.amiri(fontSize: 30, color: MyColors.white),
               ),
-              IconButton(
+              ElevatedButton(
+                style: IconButton.styleFrom(
+                  minimumSize: const Size(40, 40),
+                  backgroundColor: MyColors.primaryLight,
+                  elevation: 5,
+                ),
                 onPressed: () {
                   Helper.showAlert(
                     context: context,
@@ -59,7 +64,7 @@ class DetailsAppbar extends StatelessWidget {
                     onTap: onTap,
                   );
                 },
-                icon: const Icon(FontAwesomeIcons.info, color: MyColors.white),
+                child: const Icon(FontAwesomeIcons.info, color: MyColors.white),
               ),
             ],
           ),

@@ -117,12 +117,20 @@ abstract class Helper {
 
   static showSnackBar({
     required BuildContext context,
+    required String title,
     required String message,
   }) {
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Column(
+          children: [
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(message, textAlign: TextAlign.center),
+          ],
+        ),
+      ),
+    );
   }
 
   static String convertNumberToArabic(int number) {
@@ -167,6 +175,40 @@ abstract class Helper {
   static saveLastReadToPrefs(SurahModel surahModel) async {
     final lastRead = jsonEncode(surahModel.toJson());
     await PrefsService.saveLastRead(lastRead);
+  }
+
+  static String removeDiacritics(String input) {
+    const diacritics = [
+      '\u064B', // Tanween Fath
+      '\u064C', // Tanween Damm
+      '\u064D', // Tanween Kasr
+      '\u064E', // Fatha
+      '\u064F', // Damma
+      '\u0650', // Kasra
+      '\u0651', // Shadda
+      '\u0652', // Sukun (السكون)
+      '\u0653', // Maddah
+      '\u0654', // Hamza Above
+      '\u0655', // Hamza Below
+      '\u0671', // Hamzah Wasla (ٱ)
+    ];
+
+    return input.replaceAll(RegExp('[${diacritics.join()}]'), '');
+  }
+
+  static String normalizeArabic(String input) {
+    const diacriticsRegex = r'[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]';
+
+    return input
+        .replaceAll(RegExp(diacriticsRegex), '')
+        .replaceAll('أ', 'ا')
+        .replaceAll('إ', 'ا')
+        .replaceAll('آ', 'ا')
+        .replaceAll('ى', 'ي')
+        .replaceAll('ئ', 'ي')
+        .replaceAll(RegExp(r'\s+'), ' ') // normalize multiple spaces to one
+        .trim()
+        .toLowerCase();
   }
 
   static String getSurahTrasnlationsEndPoint({required int path}) =>

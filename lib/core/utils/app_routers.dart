@@ -4,6 +4,7 @@ import 'package:quran/features/home/Cubits/Translation%20Cubit/translation_cubit
 import 'package:quran/features/home/Cubits/Azkar%20Cubit/azkar_cubit.dart';
 import 'package:quran/features/home/presentation/views/azkar_category_view.dart';
 import 'package:quran/features/home/presentation/views/azkar_view.dart';
+import 'package:quran/features/home/presentation/views/search_view.dart';
 import 'package:quran/features/home/presentation/views/sebha_view.dart';
 import 'package:quran/features/home/presentation/views/surah_translation_view.dart';
 import '../../features/home/Cubits/Hadeeth%20Cubit/hadeeth_cubit.dart';
@@ -63,8 +64,9 @@ abstract class AppRouters {
           final extras =
               state.extra as Map<String, dynamic>; // Extract data as Map
           final surah = extras['surah'] as SurahModel;
+          final endPoint = extras['endPoint'] as String;
           final name = extras['name'] as String;
-          return AudioView(name: name, surahModel: surah);
+          return AudioView(name: name, surahModel: surah, endPoint: endPoint);
         },
       ),
       GoRoute(
@@ -151,6 +153,15 @@ abstract class AppRouters {
             (_, _) => BlocProvider(
               create: (context) => CounterCubit(),
               child: const SebhaView(),
+            ),
+      ),
+      GoRoute(
+        path: '/search',
+        name: 'search',
+        builder:
+            (_, _) => BlocProvider(
+              create: (context) => getIt.get<SurahCubit>()..getSurah(),
+              child: const SearchView(),
             ),
       ),
       GoRoute(

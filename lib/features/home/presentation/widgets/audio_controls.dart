@@ -1,9 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:dio/dio.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/utils/helper.dart';
 
@@ -12,9 +13,12 @@ class AudioControls extends StatefulWidget {
     super.key,
     required this.audioPlayer,
     required this.dio,
+    required this.name,
+    required this.surahName,
   });
   final AudioPlayer audioPlayer;
   final Dio dio;
+  final String name, surahName;
 
   @override
   State<AudioControls> createState() => _AudioControlsState();
@@ -23,26 +27,67 @@ class AudioControls extends StatefulWidget {
 class _AudioControlsState extends State<AudioControls> {
   bool _downloading = false;
 
+  // Request storage permission
+  Future<bool> _requestPermission() async {
+    PermissionStatus status = await Permission.storage.request();
+    return status.isGranted;
+  }
+
+  // Function to download audio
   Future<void> _downloadAudio() async {
     try {
       setState(() => _downloading = true);
 
+      // Request storage permission
+      bool permissionGranted = await _requestPermission();
+      if (!permissionGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('😢 فشل الحصول على إذن الوصول للتخزين'),
+            action: SnackBarAction(
+              label: 'حاول مرة اخرى',
+              onPressed: () async {
+                await _requestPermission();
+              },
+            ),
+          ),
+        );
+        return;
+      }
+
       final source = widget.audioPlayer.audioSource;
       if (source is! UriAudioSource) {
-        Helper.showSnackBar(context: context, message: "Invalid audio source");
         return;
       }
 
       final url = source.uri.toString();
-      final dir = await getApplicationDocumentsDirectory();
-      final fileName = url.split('/').last;
-      final filePath = '${dir.path}/$fileName';
+      // Set the path for the system-wide Downloads folder
+      final downloadsDir =
+          '/storage/emulated/0/Download'; // Path to Downloads folder
+      final fileName = '${widget.name}/${widget.surahName}.mp3';
+      final filePath =
+          '$downloadsDir/$fileName'; // Full file path in Downloads folder
 
+      // Ensure the directory exists
+      final directory = Directory(downloadsDir);
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+
+      // Download the file
       await widget.dio.download(url, filePath);
 
-      Helper.showSnackBar(context: context, message: 'Download completed 🎉');
+      Helper.showSnackBar(
+        context: context,
+        message: '🎉 تم التحميل بنجاح',
+        title: 'ابدأ في الاستماع الآن',
+      );
     } catch (e) {
-      Helper.showSnackBar(context: context, message: 'Download failed 😢');
+      Helper.showSnackBar(
+        context: context,
+        message: '😢 فشل التحميل',
+        title: 'حاول مرة أخرى',
+      );
     } finally {
       setState(() => _downloading = false);
     }

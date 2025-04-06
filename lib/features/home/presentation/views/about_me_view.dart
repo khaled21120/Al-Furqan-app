@@ -22,7 +22,7 @@ class AboutMeView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
@@ -57,7 +57,11 @@ class AboutMeView extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 80),
+              const Divider(
+                thickness: 1,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 10),
               Column(
                 children: [
                   Text('يمكنك متابعة مطور التطبيق عن طريق', style: GoogleFonts.tajawal(fontSize: 16)),
