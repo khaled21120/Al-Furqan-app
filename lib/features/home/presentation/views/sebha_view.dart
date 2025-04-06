@@ -66,8 +66,8 @@ class _SebhaViewState extends State<SebhaView> {
                   BlocBuilder<CounterCubit, int>(
                     builder: (context, count) {
                       return Container(
-                        height: 50,
-                        width: 140,
+                        height: 40,
+                        width: 110,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -87,7 +87,7 @@ class _SebhaViewState extends State<SebhaView> {
                             ' $count',
                             style: GoogleFonts.orbitron(
                               color: MyColors.black,
-                              fontSize: 35,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 5,
                             ),
@@ -129,16 +129,16 @@ class _SebhaViewState extends State<SebhaView> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 105),
+                      const SizedBox(width: 80),
                     ],
                   ),
 
-                  const SizedBox(height: 20),
+                      const SizedBox(height: 10),
 
                   // زر الإضافة
                   Container(
-                    height: 60,
-                    width: 60,
+                    height: 45,
+                    width: 45,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -155,7 +155,7 @@ class _SebhaViewState extends State<SebhaView> {
                       onPressed: () {
                         context.read<CounterCubit>().increment();
                       },
-                      icon: const Icon(Icons.add, size: 40),
+                      icon: const Icon(Icons.add, size: 25),
                       color: MyColors.primaryDark,
                     ),
                   ),

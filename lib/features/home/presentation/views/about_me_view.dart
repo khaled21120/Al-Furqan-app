@@ -60,7 +60,7 @@ class AboutMeView extends StatelessWidget {
               const SizedBox(height: 80),
               Column(
                 children: [
-                  Text('يمكنك متابعة مطور التطبيق عبن طريق', style: GoogleFonts.tajawal(fontSize: 16)),
+                  Text('يمكنك متابعة مطور التطبيق عن طريق', style: GoogleFonts.tajawal(fontSize: 16)),
                   const SizedBox(height: 10),
                   const SocialButtonsRow(),
                   const SizedBox(height: 10),

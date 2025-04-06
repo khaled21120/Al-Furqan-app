@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quran/core/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/utils/helper.dart';
@@ -33,7 +34,7 @@ class SocialButtonsRow extends StatelessWidget {
           ),
           onPressed: () {
             // Add your Facebook link action here
-            launchCustomUr(context, 'https://www.facebook.com/');
+            launchCustomUr(context, Constants.facebook);
           },
         ),
 
@@ -46,7 +47,7 @@ class SocialButtonsRow extends StatelessWidget {
           ),
           onPressed: () {
             // Add your github link action here
-            launchCustomUr(context, 'https://github.com/khaled21120');
+            launchCustomUr(context, Constants.github);
           },
         ),
 
@@ -59,7 +60,7 @@ class SocialButtonsRow extends StatelessWidget {
           ),
           onPressed: () {
             // Add your linkedin link action here
-            launchCustomUr(context, 'https://www.linkedin.com/');
+            launchCustomUr(context, Constants.linkedin);
           },
         ),
       ],

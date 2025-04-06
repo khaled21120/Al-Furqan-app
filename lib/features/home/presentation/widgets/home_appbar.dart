@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quran/core/themes/text_style.dart';
 
 class HomeAppbar extends StatelessWidget {
@@ -20,7 +22,12 @@ class HomeAppbar extends StatelessWidget {
             ),
           ),
           Text('الفرقان', style: MyStyle.title25(context)),
-          Container(),
+           IconButton(
+            icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+            onPressed: () {
+              GoRouter.of(context).pushNamed('search');
+            },
+          ),
         ],
       ),
     );
