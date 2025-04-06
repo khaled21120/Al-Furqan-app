@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:quran/core/themes/light_theme.dart';
 
 import '../../../../core/utils/helper.dart';
 
@@ -44,11 +45,19 @@ class _AudioControlsState extends State<AudioControls> {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('😢 فشل الحصول على إذن الوصول للتخزين'),
+            content: Text(
+              '😢 فشل الحصول على إذن الوصول للتخزين',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
             action: SnackBarAction(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              textColor: Theme.of(context).colorScheme.onSurface,
               label: 'حاول مرة اخرى',
               onPressed: () async {
-                await _requestPermission();
+                await _downloadAudio();
               },
             ),
           ),
@@ -81,7 +90,7 @@ class _AudioControlsState extends State<AudioControls> {
       Helper.showSnackBar(
         context: context,
         message: '🎉 تم التحميل بنجاح',
-        title: 'ابدأ في الاستماع الآن',
+        title: 'ابدأ في الأستماع الآن',
       );
     } catch (e) {
       Helper.showSnackBar(

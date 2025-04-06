@@ -20,6 +20,7 @@ void main() async {
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Quran Playback',
     androidNotificationOngoing: true,
+    androidNotificationIcon: 'mipmap/appicon',
   );
   ThemeCubit themeCubit = ThemeCubit();
   themeCubit.loadTheme();
