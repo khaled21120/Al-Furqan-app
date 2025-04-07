@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:quran/core/themes/light_theme.dart';
 
 import '../../../../core/utils/helper.dart';
 
