@@ -9,7 +9,7 @@ import 'package:quran/core/utils/helper.dart';
 import 'package:quran/features/home/data/models/surah_model.dart';
 import 'package:quran/features/home/Cubits/Last%20Read%20Cubit/last_read_cubit.dart';
 
-import '../../../../core/themes/light_theme.dart';
+import '../../../../../../core/themes/light_theme.dart';
 
 class SurahListItem extends StatelessWidget {
   const SurahListItem({

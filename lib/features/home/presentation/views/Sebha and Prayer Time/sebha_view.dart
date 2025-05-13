@@ -5,7 +5,7 @@ import 'package:quran/core/themes/text_style.dart';
 import 'package:quran/core/utils/constants.dart';
 import 'package:quran/core/themes/light_theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../Cubits/Sebha Cubit/sebha_cubit.dart';
+import '../../../Cubits/Sebha Cubit/sebha_cubit.dart';
 
 class SebhaView extends StatefulWidget {
   const SebhaView({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:quran/core/utils/helper.dart';
 
-import '../../../../core/themes/text_style.dart';
+import '../../../../../../core/themes/text_style.dart';
 
 class PrayerTimeCard extends StatelessWidget {
   const PrayerTimeCard({

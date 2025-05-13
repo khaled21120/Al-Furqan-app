@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran/features/home/presentation/widgets/shimmer_list.dart';
-import 'package:quran/features/home/presentation/widgets/surah_item.dart';
+import 'package:quran/features/home/presentation/views/Surahs/widgets/surah_item.dart';
 import '../../../../core/themes/light_theme.dart';
 import '../../../../core/themes/text_style.dart';
 import '../../../../core/utils/helper.dart';

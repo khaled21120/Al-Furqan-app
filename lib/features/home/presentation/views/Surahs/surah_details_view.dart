@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/core/utils/helper.dart';
 import 'package:quran/features/home/data/models/surah_model.dart';
-import 'package:quran/features/home/presentation/widgets/details_appbar.dart';
+import 'package:quran/features/home/presentation/views/Surahs/widgets/details_appbar.dart';
 import 'package:quran/features/home/Cubits/Surah%20Cuibit/surah_cubit.dart';
 
 class SurahDetailsView extends StatelessWidget {

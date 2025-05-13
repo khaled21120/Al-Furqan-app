@@ -11,9 +11,9 @@ import 'package:quran/core/themes/text_style.dart';
 import 'package:quran/core/utils/constants.dart';
 import 'package:quran/core/utils/helper.dart';
 import 'package:quran/features/home/data/models/surah_model.dart';
-import 'package:quran/features/home/presentation/widgets/audio_controls.dart';
+import 'package:quran/features/home/presentation/views/Audio/widgets/audio_controls.dart';
 
-import '../widgets/audio_bar.dart';
+import 'widgets/audio_bar.dart';
 
 class AudioView extends StatefulWidget {
   const AudioView({

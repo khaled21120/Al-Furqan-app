@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quran/features/home/presentation/widgets/surah_item.dart';
+import 'package:quran/features/home/presentation/views/Surahs/widgets/surah_item.dart';
 
-import '../../../../core/themes/light_theme.dart';
-import '../../data/models/surah_model.dart';
+import '../../../../../../core/themes/light_theme.dart';
+import '../../../../data/models/surah_model.dart';
 
 class SurahsList extends StatelessWidget {
   const SurahsList({

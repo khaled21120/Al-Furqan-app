@@ -59,54 +59,43 @@ abstract class Helper {
   static String getUrl({required String name, required int id}) =>
       'https://cdn.islamic.network/quran/audio-surah/128/$name/$id.mp3';
 
-  static String getAudioUrl({required String name, required int id}) {
-    late String server;
+static String getAudioUrl({required String name, required int id}) {
+  // Handle special cases that use islamic.network CDN
+  const islamicNetworkReciters = {
+    'ar.abdulbasitmujawwad',
+    'ar.muhammadsiddiqalminshawimujawwad',
+    'ar.yasseraldossari',
+  };
 
-    switch (name) {
-      case 'basit_mjwd':
-        server = 'server13.mp3quran.net';
-        break;
-      case 'maher':
-        server = 'server12.mp3quran.net';
-        break;
-      case 'afs':
-        server = 'server8.mp3quran.net';
-        break;
-      case 'sds':
-        server = 'server11.mp3quran.net';
-        break;
-      case 'tblawi':
-        server = 'server12.mp3quran.net';
-        break;
-      case 'lhdan':
-        server = 'server8.mp3quran.net';
-        break;
-      case 'minsh':
-        server = 'server10.mp3quran.net';
-        break;
-      case 'husr':
-        server = 'server13.mp3quran.net';
-        break;
-      case 'bna':
-        server = 'server8.mp3quran.net';
-        break;
-      case 'qtm':
-        server = 'server6.mp3quran.net';
-        break;
-      case 'yasser':
-        server = 'server11.mp3quran.net';
-        break;
-      case 's_gmd':
-        server = 'server7.mp3quran.net';
-        break;
-      default:
-        throw Exception('Unknown reciter name: $name');
-    }
-
-    final formattedId = id.toString().padLeft(3, '0');
-    return 'http://$server/$name/$formattedId.mp3';
+  if (islamicNetworkReciters.contains(name)) {
+    return 'https://cdn.islamic.network/quran/audio-surah/128/$name/${id.toString()}.mp3';
   }
 
+  // Handle standard mp3quran.net cases
+  final formattedId = id.toString().padLeft(3, '0');
+  final server = _getServerForReciter(name);
+  return 'http://$server/$name/$formattedId.mp3';
+}
+
+static String _getServerForReciter(String name) {
+  const serverMapping = {
+    'maher': 'server12.mp3quran.net',
+    'afs': 'server8.mp3quran.net',
+    'sds': 'server11.mp3quran.net',
+    'tblawi': 'server12.mp3quran.net',
+    'lhdan': 'server8.mp3quran.net',
+    'husr': 'server13.mp3quran.net',
+    'bna': 'server8.mp3quran.net',
+    'qtm': 'server6.mp3quran.net',
+    's_gmd': 'server7.mp3quran.net',
+  };
+
+  if (!serverMapping.containsKey(name)) {
+    throw ArgumentError('Unknown reciter name: $name');
+  }
+
+  return serverMapping[name]!;
+}
   static String getPrayerTimeEndPoint({
     required double lat,
     required String date,

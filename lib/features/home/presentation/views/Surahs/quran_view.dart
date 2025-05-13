@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran/features/home/presentation/widgets/surahs_list.dart';
+import 'package:quran/features/home/presentation/views/Surahs/widgets/surahs_list.dart';
 import 'package:quran/features/home/presentation/widgets/shimmer_list.dart';
 
-import '../../../../core/themes/light_theme.dart';
-import '../../Cubits/Surah Cuibit/surah_cubit.dart';
+import '../../../../../core/themes/light_theme.dart';
+import '../../../Cubits/Surah Cuibit/surah_cubit.dart';
 
 class QuranView extends StatelessWidget {
   const QuranView({

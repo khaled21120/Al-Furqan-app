@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/core/themes/text_style.dart';
 import 'package:quran/features/home/Cubits/Translation%20Cubit/translation_cubit.dart';
 
-import '../../../../core/themes/light_theme.dart';
+import '../../../../../core/themes/light_theme.dart';
 
 class SurahTranslationView extends StatelessWidget {
   const SurahTranslationView({super.key, required this.surahName});

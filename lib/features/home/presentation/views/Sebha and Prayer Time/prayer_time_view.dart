@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:quran/core/themes/text_style.dart';
-import 'package:quran/features/home/presentation/widgets/prayer_time_card.dart';
+import 'package:quran/features/home/presentation/views/Sebha%20and%20Prayer%20Time/widgets/prayer_time_card.dart';
 import 'package:quran/features/home/Cubits/Prayer%20Cubit/prayer_cubit.dart';
 
 class PrayerTimeView extends StatefulWidget {

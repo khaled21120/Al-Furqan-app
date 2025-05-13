@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/themes/text_style.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../../core/themes/text_style.dart';
+import '../../../../../core/utils/constants.dart';
 
 class AzkarCategoryView extends StatelessWidget {
   const AzkarCategoryView({super.key});

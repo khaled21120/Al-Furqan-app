@@ -121,7 +121,7 @@ abstract class Constants {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNFPVopJXu0EhWT8tWFeOL-pswy6ZJZG1Dpw&s',
     ),
     ReciteModel(
-      endPoint: 'basit_mjwd',
+      endPoint: 'ar.abdulbasitmujawwad',
       name: 'عبد الباسط عبد الصمد',
       imgURL:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMBpW-JH7CACcz6PFC2Nt2MmwOsJouxDBiag&s',
@@ -138,13 +138,13 @@ abstract class Constants {
       imgURL: 'https://i1.sndcdn.com/artworks-000088975436-n33pt8-t500x500.jpg',
     ),
     ReciteModel(
-      endPoint: 'minsh',
+      endPoint: 'ar.muhammadsiddiqalminshawimujawwad',
       name: 'محمد صديق المنشاوي',
       imgURL:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQhhTub-NbkWaMsfvXfxMAYC4dAEJnkZiO3g&s',
     ),
     ReciteModel(
-      endPoint: 'yasser',
+      endPoint: 'ar.yasseraldossari',
       name: 'ياسر الدوسري',
       imgURL:
           'https://i1.sndcdn.com/artworks-yqaFIhjTMlyQyFHL-5PmjKw-t500x500.jpg',

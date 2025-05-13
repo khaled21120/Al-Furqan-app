@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../data/models/audio_model.dart';
+import '../../../../data/models/audio_model.dart';
 
 class AudioBar extends StatelessWidget {
   const AudioBar({super.key, required this.audioPlayer});

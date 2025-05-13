@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/core/utils/helper.dart';
 
-import '../../../../core/themes/light_theme.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../../../core/themes/light_theme.dart';
+import '../../../../../../core/utils/constants.dart';
 
 class DetailsAppbar extends StatelessWidget {
   const DetailsAppbar({
