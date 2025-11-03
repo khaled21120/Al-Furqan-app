@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quran/features/home/presentation/views/Surahs/widgets/surah_item.dart';
+import 'surah_item.dart';
 
 import '../../../../../../core/themes/light_theme.dart';
 import '../../../../data/models/surah_model.dart';

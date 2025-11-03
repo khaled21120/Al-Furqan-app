@@ -1,14 +1,16 @@
-import 'package:quran/features/home/data/models/recite_model.dart';
+import '../../features/home/data/models/recite_model.dart';
 
 abstract class Constants {
   static const String _images = 'assets/images/';
+  static const String _json = 'assets/json/';
+
   static const String quran = '${_images}quran.svg';
   static const String appbar = '${_images}Quran.png';
   static const String splash = '${_images}splash.svg';
   static const String star = '${_images}star.svg';
   static const String logo = '${_images}logo.png';
   static const String intro = '${_images}intro.json';
-  static const String adkar = 'assets/adkar.json';
+  static const String azkarJson = '${_json}azkar.json';
   static const String bismillah = '${_images}bismillah.svg';
   static const String recitation = '${_images}recite.svg';
   static const String smallBook = '${_images}small_book.svg';
@@ -56,7 +58,6 @@ abstract class Constants {
     {'id': "أدعية قرآنية", 'title': "أدعية قرآنية"},
     {'id': "أدعية الأنبياء", 'title': "أدعية الأنبياء"},
   ];
-
   static const List<ReciteModel> reci = [
     ReciteModel(
       endPoint: 'ar.abdulbasitmujawwad',

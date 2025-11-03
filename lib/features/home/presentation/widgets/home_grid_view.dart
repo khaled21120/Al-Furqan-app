@@ -34,9 +34,15 @@ class HomeGridView extends StatelessWidget {
                 GoRouter.of(context).pushNamed('prayerTime');
               },
             ),
-            HomeGridItem(title: 4, image: 4, height: 4, onTap: () {
-              GoRouter.of(context).pushNamed('sebha');
-            }),
+            HomeGridItem(
+              title: 4,
+              image: 4,
+              height: 4,
+              onTap: () {
+                GoRouter.of(context).pushNamed('sebha');
+              },
+            ),
+            const SizedBox(height: 20),
           ],
         ),
         const SizedBox(width: 20),
@@ -68,6 +74,7 @@ class HomeGridView extends StatelessWidget {
                 GoRouter.of(context).pushNamed('hadeethCategories');
               },
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ],

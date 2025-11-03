@@ -1,6 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class AzkarModel extends Equatable {
+part 'azkar_model.g.dart';
+
+@JsonSerializable(createToJson: false)
+class AzkarModel {
   final String? category;
   final String? count;
   final String? description;
@@ -15,24 +18,5 @@ class AzkarModel extends Equatable {
     this.content,
   });
 
-  factory AzkarModel.fromJson(Map<String, dynamic> json) => AzkarModel(
-    category: json['category'] as String?,
-    count: json['count'] as String?,
-    description: json['description'] as String?,
-    reference: json['reference'] as String?,
-    content: json['content'] as String?,
-  );
-
-  Map<String, dynamic> toJson() => {
-    'category': category,
-    'count': count,
-    'description': description,
-    'reference': reference,
-    'content': content,
-  };
-
-  @override
-  List<Object?> get props {
-    return [category, count, description, reference, content];
-  }
+  factory AzkarModel.fromJson(json) => _$AzkarModelFromJson(json);
 }

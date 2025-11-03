@@ -37,12 +37,12 @@ ThemeData lightThemeData = ThemeData(
     onTertiaryContainer: MyColors.white,
     brightness: Brightness.light,
   ),
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: MyColors.cardBG,
     elevation: 5,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
   ),
-  dialogTheme: const DialogTheme(backgroundColor: MyColors.primary),
+  dialogTheme: const DialogThemeData(backgroundColor: MyColors.primary),
   scaffoldBackgroundColor: MyColors.white,
   drawerTheme: const DrawerThemeData(backgroundColor: MyColors.white),
   appBarTheme: AppBarTheme(

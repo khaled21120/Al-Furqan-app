@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quran/core/themes/text_style.dart';
-import 'package:quran/features/home/presentation/widgets/shimmer_list.dart';
-import 'package:quran/features/home/Cubits/Hadeeth%20Cubit/hadeeth_cubit.dart';
+import '../../../../../core/themes/text_style.dart';
+import '../../widgets/shimmer_list.dart';
+import '../../../Cubits/hadeeth_cubit/hadeeth_cubit.dart';
 
 class HadeethsView extends StatelessWidget {
   const HadeethsView({super.key, required this.title});
@@ -39,9 +39,9 @@ class HadeethsView extends StatelessWidget {
                               Theme.of(context).colorScheme.primary,
                         ),
                         onPressed: () {
-                          GoRouter.of(context).pushNamed(
-                            'hadeethDetails',
-                            extra: {'title': title, 'id': hadeeths[index].id},
+                          GoRouter.of(context).push(
+                            '/hadeethDetails/${hadeeths[index].id}',
+                            extra: title,
                           );
                         },
                         child: Text('ٳقرأ', style: MyStyle.title16(context)),

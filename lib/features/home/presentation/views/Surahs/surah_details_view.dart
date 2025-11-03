@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/core/utils/helper.dart';
-import 'package:quran/features/home/data/models/surah_model.dart';
-import 'package:quran/features/home/presentation/views/Surahs/widgets/details_appbar.dart';
-import 'package:quran/features/home/Cubits/Surah%20Cuibit/surah_cubit.dart';
+import '../../../../../core/utils/helper.dart';
+import 'widgets/details_appbar.dart';
+import '../../../Cubits/surah_cuibit/surah_cubit.dart';
 
 class SurahDetailsView extends StatelessWidget {
-  const SurahDetailsView({super.key, required this.ayahModel});
-  final SurahModel ayahModel;
+  const SurahDetailsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +19,20 @@ class SurahDetailsView extends StatelessWidget {
           } else if (state is AyahError) {
             return Center(child: Text(state.errMsg));
           } else if (state is AyahLoaded) {
+            final surahDetails = state.ayahs;
+            final ayahs = state.ayahs.ayahs ?? [];
             return Column(
               children: [
                 DetailsAppbar(
-                  title: ayahModel.name!,
-                  engName: ayahModel.englishName!,
-                  type: ayahModel.revelationType!,
-                  juz: state.ayahs.first.juz!,
-                  hizbQuarter: state.ayahs.first.hizbQuarter!,
+                  title: surahDetails.name ?? '',
+                  engName: surahDetails.englishName ?? '',
+                  type: surahDetails.revelationType ?? '',
+                  juz: ayahs.first.juz ?? 0,
+                  hizbQuarter: ayahs.first.hizbQuarter ?? 0,
                   onTap: () {
-                    GoRouter.of(context).pushNamed(
-                      'surahTranslation',
-                      extra: {'id': ayahModel.number, 'title': ayahModel.name},
+                    GoRouter.of(context).push(
+                      '/surahTranslation/${surahDetails.number}',
+                      extra: surahDetails.name,
                     );
                   },
                 ),
@@ -42,11 +42,9 @@ class SurahDetailsView extends StatelessWidget {
                     child: Text.rich(
                       TextSpan(
                         children:
-                            state.ayahs.asMap().entries.map((entry) {
-                              final index = entry.key;
-                              final ayah = entry.value;
+                            state.ayahs.ayahs?.map((ayah) {
                               final number = Helper.convertNumberToArabic(
-                                index + 1,
+                                ayah.numberInSurah ?? 0,
                               );
                               final cleanText = ayah.text!.replaceAll('\n', '');
 

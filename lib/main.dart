@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:quran/generated/l10n.dart';
+import 'generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/services/get_it_service.dart';
+import 'core/services/notfiy_service.dart';
 import 'core/services/prefs_service.dart';
 import 'core/themes/dark_theme.dart';
 import 'core/themes/light_theme.dart';
 import 'core/utils/app_routers.dart';
-import 'features/home/Cubits/Theme Cubit/theme_cubit.dart';
-import 'features/home/Cubits/Last Read Cubit/last_read_cubit.dart';
+import 'features/home/cubits/theme_cubit/theme_cubit.dart';
+import 'features/home/cubits/last_read_cubit/last_read_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupServiceLocator();
+  setupGetIt();
   await PrefsService.init();
+  ThemeCubit themeCubit = ThemeCubit();
+  themeCubit.loadTheme();
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Quran Playback',
     androidNotificationOngoing: true,
     androidNotificationIcon: 'mipmap/appicon',
   );
-  ThemeCubit themeCubit = ThemeCubit();
-  themeCubit.loadTheme();
+  await NotifyService.init();
+
   runApp(
     MultiBlocProvider(
       providers: [

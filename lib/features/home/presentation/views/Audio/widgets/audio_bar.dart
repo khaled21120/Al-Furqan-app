@@ -35,7 +35,10 @@ class AudioBar extends StatelessWidget {
           progress: progress,
           buffered: buffered,
           total: total,
-          onSeek: (duration) => audioPlayer.seek(duration),
+          onSeek:
+              total == Duration.zero
+                  ? null
+                  : (duration) => audioPlayer.seek(duration),
           barHeight: 8,
           baseBarColor: Colors.grey.shade600,
           bufferedBarColor: Colors.grey.shade400,

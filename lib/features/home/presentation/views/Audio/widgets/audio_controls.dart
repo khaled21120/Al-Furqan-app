@@ -29,8 +29,14 @@ class _AudioControlsState extends State<AudioControls> {
 
   // Request storage permission
   Future<bool> _requestPermission() async {
-    PermissionStatus status = await Permission.storage.request();
-    return status.isGranted;
+    if (Platform.isAndroid) {
+      if (await Permission.manageExternalStorage.isGranted) return true;
+      final status = await Permission.manageExternalStorage.request();
+      return status.isGranted;
+    } else if (Platform.isIOS) {
+      return true; // No storage permission needed
+    }
+    return false;
   }
 
   // Function to download audio
@@ -76,7 +82,14 @@ class _AudioControlsState extends State<AudioControls> {
       final fileName = '${widget.name}/${widget.surahName}.mp3';
       final filePath =
           '$downloadsDir/$fileName'; // Full file path in Downloads folder
-
+      if (File(filePath).existsSync()) {
+        Helper.showSnackBar(
+          context: context,
+          message: '📥 الملف موجود بالفعل',
+          title: 'تم التحميل مسبقًا',
+        );
+        return;
+      }
       // Ensure the directory exists
       final directory = Directory(downloadsDir);
       if (!await directory.exists()) {

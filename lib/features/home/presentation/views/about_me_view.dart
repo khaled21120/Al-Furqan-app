@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/core/themes/light_theme.dart';
-import 'package:quran/core/utils/constants.dart';
+import '../../../../core/themes/light_theme.dart';
+import '../../../../core/utils/constants.dart';
 
 import '../widgets/social_buttons.dart';
 
@@ -57,14 +57,14 @@ class AboutMeView extends StatelessWidget {
                   ),
                 ],
               ),
-              const Divider(
-                thickness: 1,
-                color: Colors.grey,
-              ),
+              const Divider(thickness: 1, color: Colors.grey),
               const SizedBox(height: 10),
               Column(
                 children: [
-                  Text('يمكنك متابعة مطور التطبيق عن طريق', style: GoogleFonts.tajawal(fontSize: 16)),
+                  Text(
+                    'يمكنك متابعة مطور التطبيق عن طريق',
+                    style: GoogleFonts.tajawal(fontSize: 16),
+                  ),
                   const SizedBox(height: 10),
                   const SocialButtonsRow(),
                   const SizedBox(height: 10),

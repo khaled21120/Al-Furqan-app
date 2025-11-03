@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/core/themes/text_style.dart';
-import 'package:quran/core/utils/constants.dart';
-import 'package:quran/core/utils/helper.dart';
-import 'package:quran/features/home/data/models/surah_model.dart';
-import 'package:quran/features/home/Cubits/Last%20Read%20Cubit/last_read_cubit.dart';
+import '../../../../../../core/themes/text_style.dart';
+import '../../../../../../core/utils/constants.dart';
+import '../../../../../../core/utils/helper.dart';
+import '../../../../data/models/surah_model.dart';
+import '../../../../Cubits/last_read_cubit/last_read_cubit.dart';
 
 import '../../../../../../core/themes/light_theme.dart';
 
@@ -48,7 +48,7 @@ class SurahListItem extends StatelessWidget {
         } else {
           Helper.saveLastReadToPrefs(surahModel);
           context.read<LastReadCubit>().loadLastRead();
-          GoRouter.of(context).pushNamed('surahDetailsView', extra: surahModel);
+          GoRouter.of(context).push('/surahDetailsView/${surahModel.number}');
         }
       },
       leading: SizedBox(

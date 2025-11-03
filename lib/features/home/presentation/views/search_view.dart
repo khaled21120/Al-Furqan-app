@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran/features/home/presentation/widgets/shimmer_list.dart';
-import 'package:quran/features/home/presentation/views/Surahs/widgets/surah_item.dart';
+import 'surahs/widgets/surah_item.dart';
 import '../../../../core/themes/light_theme.dart';
 import '../../../../core/themes/text_style.dart';
 import '../../../../core/utils/helper.dart';
-import '../../Cubits/Surah Cuibit/surah_cubit.dart';
+import '../../Cubits/surah_cuibit/surah_cubit.dart';
 import '../widgets/search_field.dart';
 
 class SearchView extends StatefulWidget {
@@ -18,18 +17,53 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+  List<dynamic> filteredSurahs = [];
+  bool hasSearchText = false;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      // ignore: use_build_context_synchronously
+
+    // Add listener to search controller
+    searchController.addListener(_onSearchChanged);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       FocusScope.of(context).requestFocus(_focusNode);
     });
   }
 
+  void _onSearchChanged() {
+    final state = context.read<SurahCubit>().state;
+
+    if (state is SurahLoaded) {
+      final surahs = state.surah;
+      final search = Helper.normalizeArabic(searchController.text);
+
+      setState(() {
+        hasSearchText = search.isNotEmpty;
+
+        if (hasSearchText) {
+          filteredSurahs =
+              surahs.where((surah) {
+                final name = Helper.removeDiacritics(surah.name ?? '');
+                final english = surah.englishName?.toLowerCase() ?? '';
+                final num = surah.number.toString();
+                final normalizedSearch = Helper.removeDiacritics(search);
+
+                return name.contains(normalizedSearch) ||
+                    english.contains(normalizedSearch.toLowerCase()) ||
+                    num.contains(search);
+              }).toList();
+        } else {
+          filteredSurahs = [];
+        }
+      });
+    }
+  }
+
   @override
   void dispose() {
+    searchController.removeListener(_onSearchChanged);
     searchController.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -42,35 +76,24 @@ class _SearchViewState extends State<SearchView> {
       body: BlocBuilder<SurahCubit, SurahState>(
         builder: (context, state) {
           if (state is SurahLoading) {
-            return const ShimmerListItem();
+            return const Center(child: CircularProgressIndicator());
           } else if (state is SurahError) {
             return Center(child: Text(state.message));
           } else if (state is SurahLoaded) {
-            final surahs = state.surah;
-            final search = Helper.normalizeArabic(searchController.text);
-
-            final filtered =
-                search.isEmpty
-                    ? []
-                    : surahs.where((surah) {
-                      final name = Helper.removeDiacritics(surah.name ?? '');
-                      final english = surah.englishName?.toLowerCase() ?? '';
-                      final num = surah.number.toString();
-                      final normalizedSearch = Helper.removeDiacritics(search);
-
-                      return name.contains(normalizedSearch) ||
-                          english.contains(normalizedSearch.toLowerCase()) ||
-                          num.contains(search);
-                    }).toList();
+            if (hasSearchText && filteredSurahs.isEmpty) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _onSearchChanged();
+              });
+            }
 
             return Column(
               children: [
                 SearchField(
                   searchController: searchController,
+                  labelText: 'ابحث',
                   focusNode: _focusNode,
-                  onTap: () => setState(() {}),
                 ),
-                if (search.isEmpty)
+                if (!hasSearchText)
                   Expanded(
                     child: Center(
                       child: Text(
@@ -84,10 +107,10 @@ class _SearchViewState extends State<SearchView> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child:
-                          filtered.isEmpty
+                          filteredSurahs.isEmpty
                               ? const Center(child: Text('لا توجد نتائج'))
                               : ListView.separated(
-                                itemCount: filtered.length,
+                                itemCount: filteredSurahs.length,
                                 separatorBuilder:
                                     (_, __) => const Padding(
                                       padding: EdgeInsets.symmetric(
@@ -99,7 +122,7 @@ class _SearchViewState extends State<SearchView> {
                                       ),
                                     ),
                                 itemBuilder: (context, index) {
-                                  final surah = filtered[index];
+                                  final surah = filteredSurahs[index];
                                   return SurahListItem(
                                     surahModel: surah,
                                     isAudio: false,

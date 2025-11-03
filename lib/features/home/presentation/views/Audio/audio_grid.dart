@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quran/core/utils/constants.dart';
+import '../../../../../core/utils/constants.dart';
 import '../../../../../core/themes/light_theme.dart';
 import '../../widgets/home_button.dart';
 

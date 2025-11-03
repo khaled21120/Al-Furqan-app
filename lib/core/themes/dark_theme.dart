@@ -51,9 +51,9 @@ ThemeData darkThemeData = ThemeData(
       side: const BorderSide(color: MyColors.white),
     ),
   ),
-  dialogTheme: const DialogTheme(backgroundColor: MyColors.primary),
+  dialogTheme: const DialogThemeData(backgroundColor: MyColors.primary),
   scaffoldBackgroundColor: MyColors.scaffold,
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: MyColors.cardBG,
     elevation: 5,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quran/core/themes/text_style.dart';
-import 'package:quran/features/home/presentation/widgets/shimmer_grid.dart';
-import 'package:quran/features/home/Cubits/Hadeeth%20Cubit/hadeeth_cubit.dart';
+import '../../../../../core/themes/text_style.dart';
+import '../../widgets/shimmer_grid.dart';
+import '../../../Cubits/hadeeth_cubit/hadeeth_cubit.dart';
+
+import '../../../data/models/hadeeths_categories_model.dart';
 
 class HadeethCategoriesView extends StatelessWidget {
   const HadeethCategoriesView({super.key});
@@ -47,7 +49,10 @@ class HadeethCategoriesView extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryCard(BuildContext context, dynamic category) {
+  Widget _buildCategoryCard(
+    BuildContext context,
+    HadeethsCategoriesModel category,
+  ) {
     return Material(
       color: Theme.of(context).colorScheme.surface,
       elevation: 3,
@@ -55,10 +60,9 @@ class HadeethCategoriesView extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
-          GoRouter.of(context).pushNamed(
-            'hadeeths',
-            extra: {'title': category.title, 'id': category.id},
-          );
+          GoRouter.of(
+            context,
+          ).push('/hadeeths/${category.id}', extra: category.title);
         },
         child: Padding(
           padding: const EdgeInsets.all(12),

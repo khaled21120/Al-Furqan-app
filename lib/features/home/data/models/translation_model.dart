@@ -1,14 +1,18 @@
-import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class TranslationModel extends Equatable {
+part 'translation_model.g.dart';
+
+@JsonSerializable(createToJson: false)
+class SurahTranslationModel {
   final String? id;
   final String? sura;
   final String? aya;
+  @JsonKey(name: 'arabic_text')
   final String? arabicText;
   final String? translation;
   final dynamic footnotes;
 
-  const TranslationModel({
+  const SurahTranslationModel({
     this.id,
     this.sura,
     this.aya,
@@ -17,28 +21,6 @@ class TranslationModel extends Equatable {
     this.footnotes,
   });
 
-  factory TranslationModel.fromJson(Map<String, dynamic> json) {
-    return TranslationModel(
-      id: json['id'] as String?,
-      sura: json['sura'] as String?,
-      aya: json['aya'] as String?,
-      arabicText: json['arabic_text'] as String?,
-      translation: json['translation'] as String?,
-      footnotes: json['footnotes'] as dynamic,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'sura': sura,
-    'aya': aya,
-    'arabic_text': arabicText,
-    'translation': translation,
-    'footnotes': footnotes,
-  };
-
-  @override
-  List<Object?> get props {
-    return [id, sura, aya, arabicText, translation, footnotes];
-  }
+  factory SurahTranslationModel.fromJson(json) =>
+      _$SurahTranslationModelFromJson(json);
 }

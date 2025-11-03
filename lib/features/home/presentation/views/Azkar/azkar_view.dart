@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/core/utils/helper.dart';
-import 'package:quran/features/home/Cubits/Azkar%20Cubit/azkar_cubit.dart';
+import '../../../../../core/utils/helper.dart';
+import '../../../Cubits/azkar_cubit/azkar_cubit.dart';
 import '../../../../../core/themes/text_style.dart';
 
 class AzkarView extends StatelessWidget {

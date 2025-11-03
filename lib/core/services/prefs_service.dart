@@ -14,8 +14,8 @@ class PrefsService {
 
   static int loadTheme() => _instance.getInt(Constants.themeKey) ?? 0;
 
-  static Future<void> saveLastRead(String location) async =>
-      await _instance.setString(Constants.lastRead, location);
+  static Future<void> saveLastRead(String lastRead) async =>
+      await _instance.setString(Constants.lastRead, lastRead);
 
   static String? loadLocation(String key) => _instance.getString(key);
 

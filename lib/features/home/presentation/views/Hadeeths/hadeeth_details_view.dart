@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran/core/themes/text_style.dart';
-import '../../../Cubits/Hadeeth Cubit/hadeeth_cubit.dart';
+import '../../../../../core/themes/text_style.dart';
+import '../../../Cubits/hadeeth_cubit/hadeeth_cubit.dart';
 
 class HadeethDetailsView extends StatelessWidget {
   const HadeethDetailsView({super.key, required this.title});

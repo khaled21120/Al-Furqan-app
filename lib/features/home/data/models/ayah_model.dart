@@ -1,6 +1,33 @@
-import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class AyahModel extends Equatable {
+part 'ayah_model.g.dart';
+
+@JsonSerializable(createToJson: false)
+class AyahModel {
+  final int? number;
+  final String? name;
+  final String? englishName;
+  final String? englishNameTranslation;
+  final String? revelationType;
+  final int? numberOfAyahs;
+  final List<Ayah>? ayahs;
+
+  const AyahModel({
+    this.number,
+    this.name,
+    this.englishName,
+    this.englishNameTranslation,
+    this.revelationType,
+    this.numberOfAyahs,
+    this.ayahs,
+  });
+
+  factory AyahModel.fromJson(json) => _$AyahModelFromJson(json);
+
+}
+
+@JsonSerializable(createToJson: false)
+class Ayah {
   final int? number;
   final String? text;
   final int? numberInSurah;
@@ -9,9 +36,8 @@ class AyahModel extends Equatable {
   final int? page;
   final int? ruku;
   final int? hizbQuarter;
-  final bool? sajda;
 
-  const AyahModel({
+  const Ayah({
     this.number,
     this.text,
     this.numberInSurah,
@@ -20,45 +46,7 @@ class AyahModel extends Equatable {
     this.page,
     this.ruku,
     this.hizbQuarter,
-    this.sajda,
   });
 
-  factory AyahModel.fromJson(Map<String, dynamic> json) => AyahModel(
-    number: json['number'] as int?,
-    text: json['text'] as String?,
-    numberInSurah: json['numberInSurah'] as int?,
-    juz: json['juz'] as int?,
-    manzil: json['manzil'] as int?,
-    page: json['page'] as int?,
-    ruku: json['ruku'] as int?,
-    hizbQuarter: json['hizbQuarter'] as int?,
-    sajda: json['sajda'] is bool ? json['sajda'] : false,
-  );
-
-  Map<String, dynamic> toJson() => {
-    'number': number,
-    'text': text,
-    'numberInSurah': numberInSurah,
-    'juz': juz,
-    'manzil': manzil,
-    'page': page,
-    'ruku': ruku,
-    'hizbQuarter': hizbQuarter,
-    'sajda': sajda,
-  };
-
-  @override
-  List<Object?> get props {
-    return [
-      number,
-      text,
-      numberInSurah,
-      juz,
-      manzil,
-      page,
-      ruku,
-      hizbQuarter,
-      sajda,
-    ];
-  }
+  factory Ayah.fromJson(json) => _$AyahFromJson(json);
 }

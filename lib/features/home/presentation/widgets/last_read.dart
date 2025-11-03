@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/core/utils/helper.dart';
+import '../../../../core/utils/helper.dart';
 
 import '../../../../core/themes/light_theme.dart';
 import '../../../../core/utils/constants.dart';
 import '../../data/models/surah_model.dart';
-import '../../Cubits/Last Read Cubit/last_read_cubit.dart';
+import '../../Cubits/last_read_cubit/last_read_cubit.dart';
 import 'home_button.dart';
 
 class LastRead extends StatelessWidget {
@@ -58,12 +58,13 @@ class LastRead extends StatelessWidget {
                         if (lastRead != null) {
                           await GoRouter.of(
                             context,
-                          ).pushNamed('surahDetailsView', extra: lastRead);
+                          ).push('/surahDetailsView/${lastRead.number}');
                         } else {
                           Helper.showSnackBar(
                             title: 'انت لم تبداء بالقراءة بعد',
                             context: context,
-                            message: '💖 لا تتردد، ابدأ اليوم بتلاوة القرآن، وفتح صفحة جديدة مع الله.',
+                            message:
+                                '💖 لا تتردد، ابدأ اليوم بتلاوة القرآن، وفتح صفحة جديدة مع الله.',
                           );
                         }
                       },

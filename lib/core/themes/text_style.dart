@@ -33,8 +33,9 @@ abstract class MyStyle {
       color: Theme.of(context).colorScheme.onSurface,
     );
   }
+
   static TextStyle sebha25(BuildContext context) {
-    return GoogleFonts.vt323 (
+    return GoogleFonts.vt323(
       fontSize: 40,
       fontWeight: FontWeight.w800,
       color: Colors.black,

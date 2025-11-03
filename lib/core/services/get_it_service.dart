@@ -1,48 +1,33 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:quran/features/home/Cubits/Translation%20Cubit/translation_cubit.dart';
-import 'package:quran/features/home/Cubits/Azkar%20Cubit/azkar_cubit.dart';
 
-import '../../features/home/Cubits/Hadeeth%20Cubit/hadeeth_cubit.dart';
-import '../../features/home/Cubits/Last%20Read%20Cubit/last_read_cubit.dart';
-import '../../features/home/Cubits/Prayer%20Cubit/prayer_cubit.dart';
-import '../../features/home/Cubits/Surah Cuibit/surah_cubit.dart';
+import '../../features/home/Cubits/azkar_cubit/azkar_cubit.dart';
+import '../../features/home/Cubits/hadeeth_cubit/hadeeth_cubit.dart';
+import '../../features/home/Cubits/last_read_cubit/last_read_cubit.dart';
+import '../../features/home/Cubits/prayer_cubit/prayer_cubit.dart';
+import '../../features/home/Cubits/surah_cuibit/surah_cubit.dart';
+import '../../features/home/Cubits/translation_cubit/translation_cubit.dart';
+import '../../features/home/Cubits/audio_cubit/audio_cubit.dart';
 import '../../features/home/data/repo/home_repo.dart';
 import '../../features/home/data/repo/home_repo_impl.dart';
-import '../utils/endpoints.dart';
-import 'back_storage_service.dart';
+import '../networking/dio_factory.dart';
+import '../networking/dio_service.dart';
 import 'location_service.dart';
 
 final getIt = GetIt.instance;
 
-void setupServiceLocator() {
-  getIt.registerSingleton<Dio>(
-    Dio(
-      BaseOptions(
-        baseUrl: Endpoints.baseUrl,
-        connectTimeout: const Duration(seconds: 20),
-        receiveTimeout: const Duration(seconds: 20),
-      ),
-    ),
-  );
-  getIt.registerSingleton<BackendStorageService>(
-    BackendStorageService(dio: getIt.get<Dio>()),
-  );
+void setupGetIt() {
+  getIt.registerSingleton<Dio>(DioFactory.dio);
+  getIt.registerSingleton<DioService>(DioService(getIt()));
   getIt.registerSingleton<LocationService>(LocationService());
   getIt.registerSingleton<HomeRepo>(
-    HomeRepoImpl(
-      backendStorageService: getIt.get<BackendStorageService>(),
-      locationService: getIt.get<LocationService>(),
-    ),
+    HomeRepoImpl(dioService: getIt(), locationService: getIt()),
   );
+  getIt.registerLazySingleton<AudioCubit>(() => AudioCubit());
   getIt.registerFactory<LastReadCubit>(() => LastReadCubit());
-  getIt.registerFactory<SurahCubit>(() => SurahCubit(getIt.get<HomeRepo>()));
-  getIt.registerFactory<PrayerCubit>(() => PrayerCubit(getIt.get<HomeRepo>()));
-  getIt.registerFactory<AzkarCubit>(() => AzkarCubit(getIt.get<HomeRepo>()));
-  getIt.registerFactory<TranslationCubit>(
-    () => TranslationCubit(getIt.get<HomeRepo>()),
-  );
-  getIt.registerFactory<HadeethCubit>(
-    () => HadeethCubit(getIt.get<HomeRepo>()),
-  );
+  getIt.registerFactory<SurahCubit>(() => SurahCubit(getIt()));
+  getIt.registerFactory<PrayerCubit>(() => PrayerCubit(getIt()));
+  getIt.registerFactory<AzkarCubit>(() => AzkarCubit(getIt()));
+  getIt.registerFactory<TranslationCubit>(() => TranslationCubit(getIt()));
+  getIt.registerFactory<HadeethCubit>(() => HadeethCubit(getIt()));
 }

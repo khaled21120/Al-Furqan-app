@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quran/features/home/presentation/widgets/drawer.dart';
+import '../widgets/drawer.dart';
 
 import '../../../../core/themes/text_style.dart';
 import '../widgets/home_appbar.dart';
@@ -20,9 +20,7 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HomeAppbar(
-              openDrawer: () {
-                scaffoldKey.currentState?.openDrawer();
-              },
+              openDrawer: () => scaffoldKey.currentState?.openDrawer(),
             ),
             const LastRead(),
             const SizedBox(height: 20),

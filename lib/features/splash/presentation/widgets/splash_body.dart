@@ -63,7 +63,6 @@ class _SplashBodyState extends State<SplashBody>
             style: MyStyle.splash18(context),
             textAlign: TextAlign.center,
           ),
-
         ],
       ),
     );

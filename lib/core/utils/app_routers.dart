@@ -1,27 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quran/features/home/Cubits/Translation%20Cubit/translation_cubit.dart';
-import 'package:quran/features/home/Cubits/Azkar%20Cubit/azkar_cubit.dart';
-import 'package:quran/features/home/presentation/views/Azkar/azkar_category_view.dart';
-import 'package:quran/features/home/presentation/views/Azkar/azkar_view.dart';
-import 'package:quran/features/home/presentation/views/search_view.dart';
-import 'package:quran/features/home/presentation/views/Sebha%20and%20Prayer%20Time/sebha_view.dart';
-import 'package:quran/features/home/presentation/views/Surahs/surah_translation_view.dart';
-import '../../features/home/Cubits/Hadeeth%20Cubit/hadeeth_cubit.dart';
-import '../../features/home/Cubits/Prayer%20Cubit/prayer_cubit.dart';
-import '../../features/home/Cubits/Sebha Cubit/sebha_cubit.dart';
-import '../../features/home/Cubits/Surah Cuibit/surah_cubit.dart';
+import '../../features/home/Cubits/translation_cubit/translation_cubit.dart';
+import '../../features/home/Cubits/azkar_cubit/azkar_cubit.dart';
+import '../../features/home/presentation/views/azkar/azkar_category_view.dart';
+import '../../features/home/presentation/views/azkar/azkar_view.dart';
+import '../../features/home/presentation/views/search_view.dart';
+import '../../features/home/presentation/views/sebha_view.dart';
+import '../../features/home/presentation/views/surahs/surah_translation_view.dart';
+import '../../features/home/Cubits/hadeeth_cubit/hadeeth_cubit.dart';
+import '../../features/home/Cubits/prayer_cubit/prayer_cubit.dart';
+import '../../features/home/Cubits/sebha_cubit/sebha_cubit.dart';
+import '../../features/home/Cubits/surah_cuibit/surah_cubit.dart';
 import '../../features/home/data/models/surah_model.dart';
 import '../../features/home/presentation/views/about_me_view.dart';
-import '../../features/home/presentation/views/Audio/audio_grid.dart';
-import '../../features/home/presentation/views/Audio/audio_view.dart';
-import '../../features/home/presentation/views/Hadeeths/hadeeth_categories_view.dart';
-import '../../features/home/presentation/views/Hadeeths/hadeeth_details_view.dart';
-import '../../features/home/presentation/views/Hadeeths/hadeeths_view.dart';
+import '../../features/home/presentation/views/audio/audio_grid.dart';
+import '../../features/home/presentation/views/audio/audio_view.dart';
+import '../../features/home/presentation/views/hadeeths/hadeeth_categories_view.dart';
+import '../../features/home/presentation/views/hadeeths/hadeeth_details_view.dart';
+import '../../features/home/presentation/views/hadeeths/hadeeths_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
-import '../../features/home/presentation/views/Sebha and Prayer Time/prayer_time_view.dart';
-import '../../features/home/presentation/views/Surahs/quran_view.dart';
-import '../../features/home/presentation/views/Surahs/surah_details_view.dart';
+import '../../features/home/presentation/views/prayer_time/prayer_time_view.dart';
+import '../../features/home/presentation/views/surahs/quran_view.dart';
+import '../../features/home/presentation/views/surahs/surah_details_view.dart';
 import '../../features/splash/presentation/splash_page.dart';
 import '../services/get_it_service.dart';
 
@@ -31,14 +31,13 @@ abstract class AppRouters {
       GoRoute(path: '/', builder: (_, _) => const SplashPage()),
       GoRoute(path: '/home', name: 'home', builder: (_, _) => const HomeView()),
       GoRoute(
-        path: "/details",
+        path: "/surahDetailsView/:id",
         name: "surahDetailsView",
         builder: (_, state) {
-          final surah = state.extra as SurahModel;
+          final id = state.pathParameters['id']!;
           return BlocProvider(
-            create:
-                (_) => getIt.get<SurahCubit>()..getAyah(path: surah.number!),
-            child: SurahDetailsView(ayahModel: surah),
+            create: (_) => getIt.get<SurahCubit>()..getAyah(id: int.parse(id)),
+            child: const SurahDetailsView(),
           );
         },
       ),
@@ -47,7 +46,7 @@ abstract class AppRouters {
         name: 'quranView',
         builder: (_, state) {
           final data =
-              state.extra as Map<String, dynamic>; // Extract data as Map
+              state.extra as Map<String, dynamic>;
           final boolen = data['isAudio'] as bool;
           final index = data['index'] as int;
           final title = data['title'] as String?;
@@ -61,8 +60,7 @@ abstract class AppRouters {
         path: '/audio',
         name: 'audioPlayer',
         builder: (_, state) {
-          final extras =
-              state.extra as Map<String, dynamic>; 
+          final extras = state.extra as Map<String, dynamic>;
           final surah = extras['surah'] as SurahModel;
           final endPoint = extras['endPoint'] as String;
           final name = extras['name'] as String;
@@ -98,45 +96,46 @@ abstract class AppRouters {
             ),
       ),
       GoRoute(
-        path: '/hadeeths',
+        path: '/hadeeths/:id',
         name: 'hadeeths',
         builder: (_, state) {
-          final extras = state.extra as Map<String, dynamic>;
-          final path = extras['id'] as String;
-          final title = extras['title'] as String;
+          final title = state.extra as String;
           return BlocProvider(
             create:
-                (context) => getIt.get<HadeethCubit>()..getHadeeths(path: path),
+                (_) =>
+                    getIt.get<HadeethCubit>()
+                      ..getHadeeths(id: state.pathParameters['id'] as String),
             child: HadeethsView(title: title),
           );
         },
       ),
       GoRoute(
-        path: '/hadeethDetails',
+        path: '/hadeethDetails/:id',
         name: 'hadeethDetails',
         builder: (_, state) {
-          final extras = state.extra as Map<String, dynamic>;
-          final path = extras['id'] as String;
-          final title = extras['title'] as String;
+          final title = state.extra as String;
           return BlocProvider(
             create:
-                (_) => getIt.get<HadeethCubit>()..getHadeethDetails(path: path),
+                (_) =>
+                    getIt.get<HadeethCubit>()..getHadeethDetails(
+                      id: state.pathParameters['id'] as String,
+                    ),
             child: HadeethDetailsView(title: title),
           );
         },
       ),
       GoRoute(
-        path: '/surahTranslation',
+        path: '/surahTranslation/:id',
         name: 'surahTranslation',
         builder: (_, state) {
-          final extras = state.extra as Map<String, dynamic>;
-          final path = extras['id'] as int;
-          final title = extras['title'] as String;
+          final title = state.extra as String;
+          final id = int.parse(state.pathParameters['id'] as String);
           return BlocProvider(
             create:
                 (_) =>
-                    getIt.get<TranslationCubit>()
-                      ..getSurahTranslation(surahID: path),
+                    getIt.get<TranslationCubit>()..getSurahTranslation(
+                      surahID: id,
+                    ),
             child: SurahTranslationView(surahName: title),
           );
         },
