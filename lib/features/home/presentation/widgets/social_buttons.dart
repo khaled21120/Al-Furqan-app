@@ -13,7 +13,7 @@ class SocialButtonsRow extends StatelessWidget {
     // Function to launch a URL
     Future<void> launchCustomUr(context, String? url) async {
       if (url != null) {
-        Uri uri = Uri.parse(url);
+        final uri = Uri.parse(url);
         if (await canLaunchUrl(uri)) {
           await launchUrl(uri);
         } else {
@@ -36,9 +36,9 @@ class SocialButtonsRow extends StatelessWidget {
             color: Colors.blue,
             size: 30,
           ),
-          onPressed: () {
+          onPressed: () async {
             // Add your Facebook link action here
-            launchCustomUr(context, Constants.facebook);
+            await launchCustomUr(context, Constants.facebook);
           },
         ),
 
@@ -49,9 +49,9 @@ class SocialButtonsRow extends StatelessWidget {
             color: Colors.white,
             size: 30,
           ),
-          onPressed: () {
+          onPressed: () async {
             // Add your github link action here
-            launchCustomUr(context, Constants.github);
+            await launchCustomUr(context, Constants.github);
           },
         ),
 
@@ -62,9 +62,9 @@ class SocialButtonsRow extends StatelessWidget {
             color: Colors.blueAccent,
             size: 30,
           ),
-          onPressed: () {
+          onPressed: () async {
             // Add your linkedin link action here
-            launchCustomUr(context, Constants.linkedin);
+            await launchCustomUr(context, Constants.linkedin);
           },
         ),
       ],

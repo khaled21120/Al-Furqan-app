@@ -77,7 +77,7 @@ class AboutMeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'الإصدار 1.0.0',
+                    'الإصدار 1.1.0',
                     style: GoogleFonts.tajawal(
                       color: Colors.grey,
                       fontSize: 14,

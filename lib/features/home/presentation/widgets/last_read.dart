@@ -8,7 +8,7 @@ import '../../../../core/utils/helper.dart';
 import '../../../../core/themes/light_theme.dart';
 import '../../../../core/utils/constants.dart';
 import '../../data/models/surah_model.dart';
-import '../../Cubits/last_read_cubit/last_read_cubit.dart';
+import '../../cubit/last_read_cubit/last_read_cubit.dart';
 import 'home_button.dart';
 
 class LastRead extends StatelessWidget {

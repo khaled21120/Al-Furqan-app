@@ -9,8 +9,8 @@ import '../../../../../core/services/get_it_service.dart';
 import '../../../../../core/themes/text_style.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/helper.dart';
-import '../../../Cubits/audio_cubit/audio_cubit.dart';
-import '../../../Cubits/audio_cubit/audio_state.dart';
+import '../../../cubit/audio_cubit/audio_cubit.dart';
+import '../../../cubit/audio_cubit/audio_state.dart';
 import '../../../data/models/surah_model.dart';
 import 'widgets/audio_bar.dart';
 import 'widgets/audio_controls.dart';
@@ -55,7 +55,7 @@ class _AudioViewState extends State<AudioView> {
   Widget build(BuildContext context) {
     return BlocBuilder<AudioCubit, AudioState>(
       bloc: audioCubit,
-      builder: (context, state) {
+      builder: (_, state) {
         final player = audioCubit.player;
         final isLoading = state.whenOrNull(loading: () => true) ?? false;
 

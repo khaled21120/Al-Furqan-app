@@ -5,7 +5,7 @@ import '../../../../core/themes/text_style.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../core/themes/light_theme.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../cubits/sebha_cubit/sebha_cubit.dart';
+import '../../cubit/sebha_cubit/sebha_cubit.dart';
 
 class SebhaView extends StatefulWidget {
   const SebhaView({super.key});

@@ -1,16 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/home/Cubits/translation_cubit/translation_cubit.dart';
-import '../../features/home/Cubits/azkar_cubit/azkar_cubit.dart';
+import '../../features/home/cubit/hadeeth_cubit/hadeeth_cubit.dart';
+import '../../features/home/cubit/prayer_cubit/prayer_cubit.dart';
+import '../../features/home/cubit/sebha_cubit/sebha_cubit.dart';
+import '../../features/home/cubit/surah_cuibit/surah_cubit.dart';
+import '../../features/home/cubit/translation_cubit/translation_cubit.dart';
+import '../../features/home/cubit/azkar_cubit/azkar_cubit.dart';
 import '../../features/home/presentation/views/azkar/azkar_category_view.dart';
 import '../../features/home/presentation/views/azkar/azkar_view.dart';
 import '../../features/home/presentation/views/search_view.dart';
 import '../../features/home/presentation/views/sebha_view.dart';
 import '../../features/home/presentation/views/surahs/surah_translation_view.dart';
-import '../../features/home/Cubits/hadeeth_cubit/hadeeth_cubit.dart';
-import '../../features/home/Cubits/prayer_cubit/prayer_cubit.dart';
-import '../../features/home/Cubits/sebha_cubit/sebha_cubit.dart';
-import '../../features/home/Cubits/surah_cuibit/surah_cubit.dart';
 import '../../features/home/data/models/surah_model.dart';
 import '../../features/home/presentation/views/about_me_view.dart';
 import '../../features/home/presentation/views/audio/audio_grid.dart';
@@ -45,8 +45,7 @@ abstract class AppRouters {
         path: '/quran',
         name: 'quranView',
         builder: (_, state) {
-          final data =
-              state.extra as Map<String, dynamic>;
+          final data = state.extra as Map<String, dynamic>;
           final boolen = data['isAudio'] as bool;
           final index = data['index'] as int;
           final title = data['title'] as String?;
@@ -133,9 +132,8 @@ abstract class AppRouters {
           return BlocProvider(
             create:
                 (_) =>
-                    getIt.get<TranslationCubit>()..getSurahTranslation(
-                      surahID: id,
-                    ),
+                    getIt.get<TranslationCubit>()
+                      ..getSurahTranslation(surahID: id),
             child: SurahTranslationView(surahName: title),
           );
         },

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri_calendar/hijri_calendar.dart';
 import 'package:intl/intl.dart';
-import 'package:quran/features/home/presentation/views/prayer_time/widgets/prayer_time_card.dart' show PrayerTimeCard;
+import '../../../data/models/prayer/prayer_model.dart';
+import 'widgets/prayer_time_card.dart';
 import '../../../../../core/services/notfiy_service.dart';
 import '../../../../../core/themes/text_style.dart';
-import '../../../cubits/prayer_cubit/prayer_cubit.dart';
+import '../../../cubit/prayer_cubit/prayer_cubit.dart';
 
+import '../../../cubit/prayer_cubit/prayer_state.dart';
 import '../../../data/models/prayer/timings.dart';
 
 class PrayerTimeView extends StatefulWidget {
@@ -48,7 +50,6 @@ class _PrayerTimeViewState extends State<PrayerTimeView> {
   }
 
   void _schedulePrayerNotifications(Timings? timings) async {
-    // in _schedulePrayerNotifications
     await NotifyService.cancelAllNotifications();
     if (timings == null || _notificationsScheduled) return;
 
@@ -85,46 +86,50 @@ class _PrayerTimeViewState extends State<PrayerTimeView> {
         padding: const EdgeInsets.all(16.0),
         child: BlocConsumer<PrayerCubit, PrayerState>(
           listener: (context, state) {
-            if (state is PrayerLoaded && !_notificationsScheduled) {
-              final timings = state.prayerTime.timings;
-              if (timings != null) {
-                _schedulePrayerNotifications(timings);
-              }
-            }
+            state.whenOrNull(
+              loaded: (prayerTime) {
+                if (!_notificationsScheduled) {
+                  _schedulePrayerNotifications(prayerTime.timings);
+                }
+              },
+            );
           },
-          builder: (context, state) {
-            if (state is PrayerLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is PrayerError) {
-              return Center(
-                child: Text(
-                  state.errMsg,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              );
-            } else if (state is PrayerLoaded) {
-              final prayerTime = state.prayerTime.timings;
+          builder:
+              (context, state) => state.maybeWhen(
+                orElse: () => const Center(child: Text('No Data Available')),
+                loading:
+                    () => const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
 
-              return ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  // Date Section
-                  _buildDateSection(state),
-                  const SizedBox(height: 20),
+                error:
+                    (errMsg) => Center(
+                      child: Text(
+                        errMsg,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+                loaded: (prayer) {
+                  final timings = prayer.timings;
+                  return ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      // Date Section
+                      _buildDateSection(prayer),
+                      const SizedBox(height: 20),
 
-                  // Prayer Times Cards
-                  _buildPrayerTimeCards(prayerTime!),
-                ],
-              );
-            }
-            return const Center(child: Text('No Data Available'));
-          },
+                      // Prayer Times Cards
+                      _buildPrayerTimeCards(timings!),
+                    ],
+                  );
+                },
+              ),
         ),
       ),
     );
   }
 
-  Widget _buildDateSection(PrayerLoaded state) {
+  Widget _buildDateSection(PrayerModel model) {
     return Column(
       children: [
         Text(
@@ -134,7 +139,7 @@ class _PrayerTimeViewState extends State<PrayerTimeView> {
         ),
         const SizedBox(height: 10),
         Text(
-          _formatHijriDate(state.prayerTime.date?.hijri?.date ?? ''),
+          _formatHijriDate(model.date?.hijri?.date ?? ''),
           style: MyStyle.title18(context),
           textAlign: TextAlign.center,
         ),

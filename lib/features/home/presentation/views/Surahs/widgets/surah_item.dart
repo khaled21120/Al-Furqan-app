@@ -7,7 +7,7 @@ import '../../../../../../core/themes/text_style.dart';
 import '../../../../../../core/utils/constants.dart';
 import '../../../../../../core/utils/helper.dart';
 import '../../../../data/models/surah_model.dart';
-import '../../../../Cubits/last_read_cubit/last_read_cubit.dart';
+import '../../../../cubit/last_read_cubit/last_read_cubit.dart';
 
 import '../../../../../../core/themes/light_theme.dart';
 

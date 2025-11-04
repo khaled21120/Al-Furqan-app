@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/themes/text_style.dart';
+import '../../../cubit/hadeeth_cubit/hadeeth_cubit.dart';
+import '../../../cubit/hadeeth_cubit/hadeeth_state.dart';
 import '../../widgets/shimmer_grid.dart';
-import '../../../Cubits/hadeeth_cubit/hadeeth_cubit.dart';
 
 import '../../../data/models/hadeeths_categories_model.dart';
 
@@ -15,36 +16,34 @@ class HadeethCategoriesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('الأحاديث')),
       body: BlocBuilder<HadeethCubit, HadeethState>(
-        builder: (context, state) {
-          if (state is HadeethLoading) {
-            return const ShimmerGridItem(aspectratio: 1);
-          } else if (state is HadeethError) {
-            return Center(child: Text(state.errMsg));
-          } else if (state is HadeethsCATELoaded) {
-            final hadeethCategoriesList = state.hadeethCategorieshList;
-            if (hadeethCategoriesList.isEmpty) {
-              return _buildEmptyState(context);
-            }
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: GridView.builder(
-                itemCount: hadeethCategoriesList.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (context, index) {
-                  final category = hadeethCategoriesList[index];
-                  return _buildCategoryCard(context, category);
-                },
-              ),
-            );
-          }
-
-          return const Center(child: Text('No Data'));
-        },
+        builder:
+            (_, state) => state.maybeWhen(
+              orElse: () => const Center(child: Text('No Data Available')),
+              loading: () => const ShimmerGridItem(aspectratio: 1),
+              error: (message) => Center(child: Text(message)),
+              hadeethsCategoriesLoaded: (hadeethCategoriesList) {
+                if (hadeethCategoriesList.isEmpty) {
+                  return _buildEmptyState(context);
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: GridView.builder(
+                    itemCount: hadeethCategoriesList.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 1,
+                        ),
+                    itemBuilder: (context, index) {
+                      final category = hadeethCategoriesList[index];
+                      return _buildCategoryCard(context, category);
+                    },
+                  ),
+                );
+              },
+            ),
       ),
     );
   }
